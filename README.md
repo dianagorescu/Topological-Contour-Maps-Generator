@@ -1,5 +1,8 @@
 Gorescu Diana - 332CC
 Tema 1 APD
 
-Pornind de la schelet am decis ca trebuie sa paralelizez functiile rescale, sample_grid si ultima, march. Mai intai, mi-am creat o structura cu toate variabilele date ca parametrii in functiile mentionate mai sus, pentru a nu avea variabile globale. Totodata, am facut o functie de thread-uri f, in care am paralelizat cu atentie functiile. In main, am urmat structura scheletului cu citiri, alocari , scrieri, dezalocari si distrugere de bariera.
+Pornind de la schelet am decis ca trebuie sa paralelizez functiile rescale, sample_grid si ultima, march. Mai intai, mi-am creat o structura cu toate variabilele gasite ca parametrii in functiile mentionate mai sus, pentru a nu avea variabile globale. Totodata, am facut o functie void de thread-uri f, in care am paralelizat cu atentie functiile. In main, am urmat structura scheletului cu citiri, alocari, afisari, dezalocari si la final am distrugerea de bariera.
 
+Pentru functiile rescale si sample am eliminat algoritmul propriu-zis pentru a fi paralelizat, returnand doar alocarile corespunzatoare. Astfel, in functia de threaduri f, am declarat si initializat o structura de variabile, urmand sa ma decid daca este nevoie de rescale sau nu. In caz afirmativ paralelizez primul for din algoritm cu start si end necesare, setand noua imagine, altfel setez imaginea ca fiind cea initiala. Mai departe pun o bariera pentru a fi sigura ca s a terminat activitatea thread-urilor de a modifica imaginea. Urmarind acelasi principiu, paralelizez functia sample_grid, adaugand la final o bariera. Urmatorul pas apelez functia march, careia i-am adaugat 2 parametrii in antentul ei: id-ul thread-ului curent ( thread_id ) si numarul acestora ( nr_th ).
+
+La final, in main, dupa terminarea thread-urilor, afisez, dezaloc memoria (depinde de tipul imaginii) si distrug bariera.
